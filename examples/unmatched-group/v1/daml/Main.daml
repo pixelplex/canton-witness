@@ -1,0 +1,24 @@
+module Main where
+
+import DA.Foldable (forA_)
+
+-- One exercise creates two Items whose create arguments differ only in a party.
+-- The diff cannot tell the two members apart, so a change in their codes is
+-- reported as inconclusive and the gate fails.
+template Item
+  with owner : Party; holder : Party
+  where
+    signatory owner
+    observer pick this
+
+pick : Item -> [Party]
+pick _ = []
+
+template Issuer
+  with owner : Party
+  where
+    signatory owner
+    nonconsuming choice Issue : ()
+      with holders : [Party]
+      controller owner
+      do forA_ holders (\h -> create Item with owner; holder = h)

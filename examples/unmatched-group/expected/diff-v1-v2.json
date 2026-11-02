@@ -1,0 +1,23 @@
+{
+  "inputs_changed": [],
+  "scenarios_added": [],
+  "scenarios_removed": [],
+  "additions": [],
+  "removals": [],
+  "inconclusive": [
+    {
+      "scenario": "group",
+      "template": "Main:Item",
+      "creating_exercise": "Main:Issuer.Issue",
+      "baseline_contracts": [
+        "#1:1",
+        "#1:2"
+      ],
+      "candidate_contracts": [
+        "#1:1",
+        "#1:2"
+      ],
+      "reason": "group of same-template contracts under one exercise cannot be matched one-to-one by create arguments, and its codes differ"
+    }
+  ]
+}

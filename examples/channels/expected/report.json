@@ -1,0 +1,116 @@
+{
+  "schema": "canton-witness-prototype/0",
+  "reports": [
+    {
+      "header": {
+        "scenario": "channels",
+        "sdk_version": "3.5.2",
+        "tool": "canton-witness-prototype 0.1.0",
+        "dars": [],
+        "roles": [
+          "alice",
+          "bob"
+        ],
+        "role_resolution": "party-id hint",
+        "scenario_digest": "sha256:5b900298fa7f1c7818cb2ccdc565c5a163cd3b7a57634286d44041d0b48ca8eb"
+      },
+      "not_measured": [
+        "Test runs on the IDE ledger only, not a running deployment.",
+        "Per party only: co-hosted parties and participant operators are not modelled.",
+        "Onward transmission of a witnessed createdEventBlob.",
+        "Off-ledger disclosure by services.",
+        "Anything the scenarios do not exercise."
+      ],
+      "rows": [
+        {
+          "contract": "#0:0",
+          "template": "Main:Secret",
+          "status": "active",
+          "creating_exercise": null,
+          "create_arguments": "owner = 'alice'; payload = \"SECRET\"",
+          "cells": {
+            "alice": {
+              "code": "S",
+              "established_by": {
+                "node": "#0:0",
+                "action": "create",
+                "template": "Main:Secret"
+              }
+            },
+            "bob": {
+              "code": "D",
+              "established_by": {
+                "node": "#2:1",
+                "action": "fetch",
+                "template": "Main:Secret"
+              },
+              "inside": {
+                "node": "#2:0",
+                "action": "exercise",
+                "template": "Main:Bridge",
+                "choice": "Peek"
+              }
+            }
+          }
+        },
+        {
+          "contract": "#1:0",
+          "template": "Main:Bridge",
+          "status": "active",
+          "creating_exercise": null,
+          "create_arguments": "owner = 'alice'; peer = 'bob'",
+          "cells": {
+            "alice": {
+              "code": "S",
+              "established_by": {
+                "node": "#1:0",
+                "action": "create",
+                "template": "Main:Bridge"
+              }
+            },
+            "bob": {
+              "code": "D",
+              "established_by": {
+                "node": "#2:0",
+                "action": "exercise",
+                "template": "Main:Bridge",
+                "choice": "Peek"
+              },
+              "inside": null
+            }
+          }
+        },
+        {
+          "contract": "#3:1",
+          "template": "Main:Child",
+          "status": "active",
+          "creating_exercise": {
+            "template": "Main:Bridge",
+            "choice": "Spawn"
+          },
+          "create_arguments": "owner = 'alice'",
+          "cells": {
+            "alice": {
+              "code": "S",
+              "established_by": {
+                "node": "#3:1",
+                "action": "create",
+                "template": "Main:Child"
+              }
+            },
+            "bob": {
+              "code": "W",
+              "established_by": {
+                "node": "#3:0",
+                "action": "exercise",
+                "template": "Main:Bridge",
+                "choice": "Spawn"
+              },
+              "created_at": "#3:1"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+module Scenario where
+
+import Daml.Script
+import Main
+
+group : Script ()
+group = do
+  alice <- allocateParty "alice"
+  carol <- allocateParty "carol"
+  dave <- allocateParty "dave"
+  i <- submit alice $ createCmd Issuer with owner = alice
+  submit alice $ exerciseCmd i Issue with holders = [carol, dave]

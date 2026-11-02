@@ -1,0 +1,2 @@
+FAIL addition: helper Main:T role bob: - -> O (established by #0:0 create on Main:T)
+gate: FAILED

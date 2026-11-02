@@ -1,0 +1,29 @@
+{
+  "inputs_changed": [],
+  "scenarios_added": [],
+  "scenarios_removed": [],
+  "additions": [
+    {
+      "scenario": "helper",
+      "template": "Main:T",
+      "role": "bob",
+      "was": null,
+      "now": "O",
+      "baseline": {
+        "contract": "#0:0",
+        "code": null
+      },
+      "candidate": {
+        "contract": "#0:0",
+        "code": "O",
+        "established_by": {
+          "node": "#0:0",
+          "action": "create",
+          "template": "Main:T"
+        }
+      }
+    }
+  ],
+  "removals": [],
+  "inconclusive": []
+}

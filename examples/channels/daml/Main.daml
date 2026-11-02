@@ -1,0 +1,45 @@
+module Main where
+
+import Daml.Script
+import DA.Optional (isNone)
+
+template Secret
+  with owner : Party; payload : Text
+  where signatory owner
+
+template Child
+  with owner : Party
+  where signatory owner
+
+template Bridge
+  with owner : Party; peer : Party
+  where
+    signatory owner
+    nonconsuming choice Peek : Text
+      with cid : ContractId Secret
+      observer peer
+      controller owner
+      do (.payload) <$> fetch cid
+    nonconsuming choice Spawn : ContractId Child
+      observer peer
+      controller owner
+      do create Child with owner
+
+channels : Script ()
+channels = do
+  alice <- allocateParty "alice"
+  bob <- allocateParty "bob"
+  s <- submit alice $ createCmd Secret with owner = alice; payload = "SECRET"
+  b <- submit alice $ createCmd Bridge with owner = alice; peer = bob
+  submit alice $ exerciseCmd b Peek with cid = s
+  c <- submit alice $ exerciseCmd b Spawn
+  bobSecrets <- query @Secret bob
+  bobChildren <- query @Child bob
+  bobS <- queryContractId bob s
+  bobC <- queryContractId bob c
+  bobF <- queryFilter @Secret bob (const True)
+  bobD <- queryDisclosure bob s
+  assertMsg "bob queries nothing" (null bobSecrets && null bobChildren && isNone bobS && isNone bobC && null bobF && isNone bobD)
+  aliceS <- queryContractId alice s
+  aliceC <- queryContractId alice c
+  assertMsg "alice sees both" (not (isNone aliceS) && not (isNone aliceC))

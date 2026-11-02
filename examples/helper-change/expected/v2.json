@@ -1,0 +1,60 @@
+{
+  "schema": "canton-witness-prototype/0",
+  "reports": [
+    {
+      "header": {
+        "scenario": "helper",
+        "sdk_version": "3.5.2",
+        "tool": "canton-witness-prototype 0.1.0",
+        "dars": [
+          {
+            "name": "wit-helper",
+            "version": "1.0.2",
+            "package_id": "5e26b08af79aa669e5bb5db4ef20c04d7c2e926a9dfed6fc39c8aea3790f59ea",
+            "sdk_version": "3.5.2"
+          }
+        ],
+        "roles": [
+          "alice",
+          "bob"
+        ],
+        "role_resolution": "party-id hint",
+        "scenario_digest": "sha256:329ad91c6fa263286ebf1749b3e11228c8d48d31dd3cc1639f7d3b1dad80449b"
+      },
+      "not_measured": [
+        "Test runs on the IDE ledger only, not a running deployment.",
+        "Per party only: co-hosted parties and participant operators are not modelled.",
+        "Onward transmission of a witnessed createdEventBlob.",
+        "Off-ledger disclosure by services.",
+        "Anything the scenarios do not exercise."
+      ],
+      "rows": [
+        {
+          "contract": "#0:0",
+          "template": "Main:T",
+          "status": "active",
+          "creating_exercise": null,
+          "create_arguments": "owner = 'alice'; other = 'bob'",
+          "cells": {
+            "alice": {
+              "code": "S",
+              "established_by": {
+                "node": "#0:0",
+                "action": "create",
+                "template": "Main:T"
+              }
+            },
+            "bob": {
+              "code": "O",
+              "established_by": {
+                "node": "#0:0",
+                "action": "create",
+                "template": "Main:T"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+module Scenario where
+
+import Daml.Script
+import Main
+
+-- The same scenario runs against v1 and v2.
+helper : Script ()
+helper = do
+  alice <- allocateParty "alice"
+  bob <- allocateParty "bob"
+  _ <- submit alice $ createCmd T with owner = alice; other = bob
+  pure ()

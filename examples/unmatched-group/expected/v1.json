@@ -1,0 +1,93 @@
+{
+  "schema": "canton-witness-prototype/0",
+  "reports": [
+    {
+      "header": {
+        "scenario": "group",
+        "sdk_version": "3.5.2",
+        "tool": "canton-witness-prototype 0.1.0",
+        "dars": [
+          {
+            "name": "wit-group",
+            "version": "1.0.1",
+            "package_id": "464e75af919929f499c7ef744a7a3498463be8535d2d08cc1e6e6bf68003f2db",
+            "sdk_version": "3.5.2"
+          }
+        ],
+        "roles": [
+          "alice",
+          "carol",
+          "dave"
+        ],
+        "role_resolution": "party-id hint",
+        "scenario_digest": "sha256:95549a5200b5568f95b5b7792a268f3db73f7eb3dc49e68105bb8a1ff0ab9101"
+      },
+      "not_measured": [
+        "Test runs on the IDE ledger only, not a running deployment.",
+        "Per party only: co-hosted parties and participant operators are not modelled.",
+        "Onward transmission of a witnessed createdEventBlob.",
+        "Off-ledger disclosure by services.",
+        "Anything the scenarios do not exercise."
+      ],
+      "rows": [
+        {
+          "contract": "#0:0",
+          "template": "Main:Issuer",
+          "status": "active",
+          "creating_exercise": null,
+          "create_arguments": "owner = 'alice'",
+          "cells": {
+            "alice": {
+              "code": "S",
+              "established_by": {
+                "node": "#0:0",
+                "action": "create",
+                "template": "Main:Issuer"
+              }
+            }
+          }
+        },
+        {
+          "contract": "#1:1",
+          "template": "Main:Item",
+          "status": "active",
+          "creating_exercise": {
+            "template": "Main:Issuer",
+            "choice": "Issue"
+          },
+          "create_arguments": "owner = 'alice'; holder = 'carol'",
+          "cells": {
+            "alice": {
+              "code": "S",
+              "established_by": {
+                "node": "#1:1",
+                "action": "create",
+                "template": "Main:Item"
+              }
+            }
+          }
+        },
+        {
+          "contract": "#1:2",
+          "template": "Main:Item",
+          "status": "active",
+          "creating_exercise": {
+            "template": "Main:Issuer",
+            "choice": "Issue"
+          },
+          "create_arguments": "owner = 'alice'; holder = 'dave'",
+          "cells": {
+            "alice": {
+              "code": "S",
+              "established_by": {
+                "node": "#1:2",
+                "action": "create",
+                "template": "Main:Item"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

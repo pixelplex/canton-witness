@@ -1,0 +1,11 @@
+module Main where
+
+-- The template text is identical in v1 and v2. Only the helper `obs` changes.
+template T
+  with owner : Party; other : Party
+  where
+    signatory owner
+    observer obs this
+
+obs : T -> [Party]
+obs _ = []
